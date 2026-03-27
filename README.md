@@ -4,9 +4,9 @@
 
 # PDF to Accessible HTML
 
-**Convert inaccessible PDFs to WCAG 2.1 AA compliant, screen-reader-compatible HTML — for less than half a cent per page.**
+Convert inaccessible PDFs to WCAG 2.1 AA compliant, screen-reader-compatible HTML — for less than half a cent per page.
 
-Powered by **[LlamaIndex](https://llamaindex.ai)** / **[LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started)**
+Powered by [LlamaIndex](https://llamaindex.ai) / [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started)
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://pdf-to-accessible-html.streamlit.app/)
 &nbsp;&nbsp;
@@ -19,7 +19,7 @@ Powered by **[LlamaIndex](https://llamaindex.ai)** / **[LlamaParse](https://docs
 Upload a PDF. Get back a fully accessible, screen-reader-compatible HTML document.<br>
 No technical skills required. Every output file passes an 8-point accessibility audit.
 
-[**Try the App**](https://pdf-to-accessible-html.streamlit.app/) · [**How It Works**](#-how-it-works) · [**Why This Exists**](#-why-this-exists)
+[Try the App](https://pdf-to-accessible-html.streamlit.app/) · [How It Works](#how-it-works) · [Why This Exists](#why-this-exists)
 
 </div>
 
@@ -27,15 +27,15 @@ No technical skills required. Every output file passes an 8-point accessibility 
 
 ## The Problem
 
-On **April 24, 2026**, the DOJ's [ADA Title II Digital Accessibility Rule](https://www.ada.gov/resources/2024-03-08-web-rule/) takes effect for every state and local government serving 50,000+ people. For the first time, there is a **legally binding technical standard** — [WCAG 2.1 Level AA](https://www.w3.org/TR/WCAG21/) — for all digital content published by covered entities. The penalties are real: **up to $75,000** for a first violation, **$150,000** for subsequent violations, assessed per instance.
+On **April 24, 2026**, the DOJ's [ADA Title II Digital Accessibility Rule](https://www.ada.gov/resources/2024-03-08-web-rule/) takes effect for every state and local government serving 50,000 or more people. For the first time, there is a legally binding technical standard — [WCAG 2.1 Level AA](https://www.w3.org/TR/WCAG21/) — for all digital content published by covered entities. The penalties are real: up to $75,000 for a first violation, $150,000 for subsequent violations, assessed per instance.
 
 Most institutions understand their websites need to be accessible. Fewer have reckoned with the **document problem**.
 
 > Public institutions produce and host enormous volumes of PDFs — court opinions, policy documents, research publications, meeting minutes, budget reports. The overwhelming majority are inaccessible. They lack tagged headings, meaningful reading order, table structure, and alt text. A screen reader encounters most of them as a wall of undifferentiated text — or worse, as images with no text at all.
 
-Manual remediation costs **$50–$150 per document** and takes a trained specialist **10–15 hours**. For an institution with thousands of documents, the math is prohibitive. This is why, despite decades of legal obligation, most public-facing documents remain inaccessible.
+Manual remediation costs $50–$150 per document and takes a trained specialist 10–15 hours. For an institution with thousands of documents, the math is prohibitive. This is why, despite decades of legal obligation, most public-facing documents remain inaccessible.
 
-**The new rule changes that calculus.** The cost barrier has collapsed. This tool converts documents at **$0.004 per page** — and the free tier covers **~3,300 pages/month**.
+The new rule changes that calculus. This tool converts documents at $0.004 per page, and the free tier covers ~3,300 pages/month.
 
 ---
 
@@ -43,31 +43,31 @@ Manual remediation costs **$50–$150 per document** and takes a trained special
 
 This is a **civil rights issue**, not a compliance issue.
 
-Approximately **42.5 million Americans** live with a disability that affects their use of digital content. When a court system publishes opinions as inaccessible PDFs, it is an access-to-justice failure. When a university posts research behind inaccessible formatting, it excludes the people that research is meant to serve.
+Approximately 42.5 million Americans live with a disability that affects their use of digital content. When a court system publishes opinions as inaccessible PDFs, it is an access-to-justice failure. When a university posts research behind inaccessible formatting, it excludes the people that research is meant to serve.
 
-The standards to fix this have existed since **1999**. The ADA has been law since **1990**. The publishers and institutions with the resources to implement them have chosen not to.
+The standards to fix this have existed since 1999. The ADA has been law since 1990. The publishers and institutions with the resources to implement them have chosen not to.
 
-What has changed is that the technology to solve this is now available at a price point that makes the failure to act **a choice rather than a constraint**.
+What has changed is that the technology to solve this is now available at a price point that makes the failure to act a choice rather than a constraint.
 
 <table>
 <tr>
 <td width="33%" align="center">
 <h3>$280</h3>
-<strong>One meeting</strong><br>
+One meeting<br>
 <sub>4 staff, 1 hour, $100k salaries</sub><br>
-<strong>0 pages converted</strong>
+0 pages converted
 </td>
 <td width="33%" align="center">
 <h3>$280</h3>
-<strong>This tool</strong><br>
+This tool<br>
 <sub>Same budget, different outcome</sub><br>
-<strong>~70,000 pages converted</strong>
+~70,000 pages converted
 </td>
 <td width="33%" align="center">
 <h3>$1,020</h3>
-<strong>Manual remediation</strong><br>
+Manual remediation<br>
 <sub>1 specialist, 15 hours</sub><br>
-<strong>~20 pages converted</strong>
+~20 pages converted
 </td>
 </tr>
 </table>
@@ -76,18 +76,18 @@ What has changed is that the technology to solve this is now available at a pric
 
 ## Quick Start
 
-### Option 1: Use the Web App
+### Use the Web App
 
 > [!TIP]
-> **No installation required.** The web app handles everything.
+> No installation required. The web app handles everything.
 
-1. **[Open the App](https://pdf-to-accessible-html.streamlit.app/)**
-2. Get a free API key at [cloud.llamaindex.ai](https://cloud.llamaindex.ai) *(30 seconds, ~3,300 free pages/month)*
+1. [Open the App](https://pdf-to-accessible-html.streamlit.app/)
+2. Get a free API key at [cloud.llamaindex.ai](https://cloud.llamaindex.ai) — takes 30 seconds, includes ~3,300 free pages/month
 3. Paste your key in the sidebar
 4. Upload your PDF or ZIP
-5. Click **Convert** and download your accessible documents
+5. Click Convert and download your accessible documents
 
-### Option 2: Run Locally (for large batches)
+### Run Locally (for large batches)
 
 ```bash
 git clone https://github.com/beperron/pdf-to-accessible-html.git
@@ -104,29 +104,29 @@ streamlit run app.py
 PDF  -->  LlamaParse API  -->  Structured Markdown  -->  5-Stage Pipeline  -->  Accessible HTML
 ```
 
-**Step 1 — Extraction via [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started).**
-[LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started) is a document parsing API built by [LlamaIndex](https://llamaindex.ai). It reads the PDF and extracts text, tables, equations, figures, and headings as structured markdown. This is the hard part — the step that would take a team of engineers months to build — and LlamaParse does it well, at scale, across PDFs, Word docs, PowerPoints, Excel files, and more.
+Step 1 — Extraction via [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started).
+LlamaParse is a document parsing API built by [LlamaIndex](https://llamaindex.ai). It reads the PDF and extracts text, tables, equations, figures, and headings as structured markdown. This is the hard part — the step that would take a team of engineers months to build — and LlamaParse does it well, at scale, across PDFs, Word docs, PowerPoints, Excel files, and more.
 
-**Step 2 — Accessibility Pipeline.**
+Step 2 — Accessibility pipeline.
 Five processors transform the markdown into WCAG-compliant HTML:
 
 | Stage | What It Does |
 |:---|:---|
-| **Math** | Routes equations through MathJax for screen-reader navigation |
-| **Tables** | Adds `<thead>`, `<th scope>`, `<caption>`, and ARIA roles |
-| **Figures** | Wraps images in `<figure>` with `<figcaption>` and alt text |
-| **Headings** | Repairs hierarchy (no skipped levels), adds slugified IDs |
-| **Accessibility** | Skip links, ARIA landmarks, `lang` attribute, auto-generated TOC |
+| Math | Routes equations through MathJax for screen-reader navigation |
+| Tables | Adds `<thead>`, `<th scope>`, `<caption>`, and ARIA roles |
+| Figures | Wraps images in `<figure>` with `<figcaption>` and alt text |
+| Headings | Repairs hierarchy (no skipped levels), adds slugified IDs |
+| Accessibility | Skip links, ARIA landmarks, `lang` attribute, auto-generated TOC |
 
-**Step 3 — Audit.**
-Every output file is verified against 8 WCAG 2.1 AA criteria. Pass rate: **100%**.
+Step 3 — Audit.
+Every output file is verified against 8 WCAG 2.1 AA criteria. Pass rate: 100%.
 
 ---
 
 ## What Makes the Output Accessible
 
 <details>
-<summary><strong>Full accessibility feature list</strong></summary>
+<summary>Full accessibility feature list</summary>
 <br>
 
 | Feature | Why It Matters |
@@ -151,8 +151,8 @@ Every output file is verified against 8 WCAG 2.1 AA criteria. Pass rate: **100%*
 
 | Tier | Cost | Pages |
 |:---|:---|:---|
-| **Free** | $0 | ~3,300 pages/month |
-| **Paid** | ~$0.004/page | 10,000 pages = **$50** |
+| Free | $0 | ~3,300 pages/month |
+| Paid | ~$0.004/page | 10,000 pages = $50 |
 
 > [!NOTE]
 > You bring your own [LlamaParse API key](https://cloud.llamaindex.ai) from [LlamaIndex](https://llamaindex.ai). The free tier is generous — most individual users will never need to pay.
@@ -165,18 +165,18 @@ Format conversion for accessibility is supported by multiple federal statutes an
 
 | Law | Relevance |
 |:---|:---|
-| **ADA Title II** (42 U.S.C. §§ 12131-12165) | Public entities *must* provide accessible digital content (WCAG 2.1 AA by April 2026) |
-| **Chafee Amendment** (17 U.S.C. § 121) | Directly authorizes accessible format conversion for persons with print disabilities |
-| **Fair Use** (17 U.S.C. § 107) | Educational, non-commercial format conversion for accessibility is a favored use |
-| **TEACH Act** (17 U.S.C. §§ 110(2), 112(f)) | Authorizes format conversion for digital transmission to enrolled students |
-| ***HathiTrust*** (755 F.3d 87, 2d Cir. 2014) | Federal appeals court held format conversion for accessibility is fair use — even for entire works |
+| ADA Title II (42 U.S.C. §§ 12131-12165) | Public entities must provide accessible digital content (WCAG 2.1 AA by April 2026) |
+| Chafee Amendment (17 U.S.C. § 121) | Directly authorizes accessible format conversion for persons with print disabilities |
+| Fair Use (17 U.S.C. § 107) | Educational, non-commercial format conversion for accessibility is a favored use |
+| TEACH Act (17 U.S.C. §§ 110(2), 112(f)) | Authorizes format conversion for digital transmission to enrolled students |
+| *HathiTrust* (755 F.3d 87, 2d Cir. 2014) | Federal appeals court held format conversion for accessibility is fair use — even for entire works |
 
 ---
 
 ## Limitations
 
 > [!IMPORTANT]
-> Automated conversion will produce occasional errors. Complex tables, unusual layouts, scanned images, and mathematical notation are common sources of imperfect output. **Always review the output** and compare against the original PDF. The original document remains the authoritative source.
+> Automated conversion will produce occasional errors. Complex tables, unusual layouts, scanned images, and mathematical notation are common sources of imperfect output. Always review the output and compare against the original PDF. The original document remains the authoritative source.
 
 This tool dramatically reduces manual effort — from hours per document to seconds — but it does not eliminate the need for a final human review.
 
@@ -184,9 +184,9 @@ This tool dramatically reduces manual effort — from hours per document to seco
 
 ## Privacy & Security
 
-- Your API key is used **only during your session** — never saved or logged
-- Uploaded files are processed in **temporary storage** and discarded when your session ends
-- The app stores **nothing** between sessions
+- Your API key is used only during your session — never saved or logged
+- Uploaded files are processed in temporary storage and discarded when your session ends
+- The app stores nothing between sessions
 
 ---
 
@@ -194,15 +194,15 @@ This tool dramatically reduces manual effort — from hours per document to seco
 
 This tool is 95% [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started) and 5% post-processing. The extraction — the hard part — is entirely theirs.
 
-- **[LlamaIndex](https://llamaindex.ai)** — the company behind LlamaParse. Their document parsing API is what makes this tool possible. Excellent service, highly recommended.
-- **[LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started)** — the document extraction engine. Converts PDFs to structured markdown with remarkable accuracy.
-- **[MathJax](https://www.mathjax.org/)** — accessible equation rendering with the Speech Rule Engine
+- [LlamaIndex](https://llamaindex.ai) — the company behind LlamaParse. Their document parsing API is what makes this tool possible.
+- [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started) — the document extraction engine. Converts PDFs to structured markdown with remarkable accuracy.
+- [MathJax](https://www.mathjax.org/) — accessible equation rendering with the Speech Rule Engine.
 
 ---
 
 <div align="center">
 
-**[Try the App](https://pdf-to-accessible-html.streamlit.app/)** · **[Report an Issue](https://github.com/beperron/pdf-to-accessible-html/issues)** · **[Get an API Key](https://cloud.llamaindex.ai)**
+[Try the App](https://pdf-to-accessible-html.streamlit.app/) · [Report an Issue](https://github.com/beperron/pdf-to-accessible-html/issues) · [Get an API Key](https://cloud.llamaindex.ai)
 
 ---
 
