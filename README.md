@@ -48,6 +48,19 @@ A common suggestion is to abandon PDF entirely. That isn't realistic. The overwh
 
 The practical path is to make the documents that already exist — and the ones that will continue to be produced — accessible in the format they're in.
 
+### Why HTML?
+
+HTML is the native language of accessibility. Screen readers, braille displays, and other assistive technologies were built to consume it. Unlike PDF — where accessibility is bolted on through a tagging layer that most authoring tools ignore — HTML provides semantic structure by default:
+
+- **Headings** (`<h1>`–`<h6>`) give screen readers a navigable outline of the document.
+- **Tables** (`<th scope>`, `<caption>`) let screen readers announce row and column headers as users move between cells.
+- **Landmarks** (`<main>`, `<nav>`, `<article>`) allow users to jump directly to content sections.
+- **Alt text** on images is a first-class attribute, not an afterthought buried in a properties panel.
+- **MathJax** renders equations that can be read aloud, explored step-by-step, and output to braille — something PDF cannot do at all.
+- **Responsive design** means the content reflows on any device or zoom level, meeting WCAG reflow requirements without manual intervention.
+
+Tagged PDF (PDF/UA) exists, but adoption is minimal — most PDF authoring tools produce untagged output, and retroactively tagging a PDF is as expensive as the manual remediation this tool replaces. HTML gets you further, faster, and the tooling to validate it is mature and free.
+
 ---
 
 ## Quick Start
