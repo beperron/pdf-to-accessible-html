@@ -153,6 +153,11 @@ with st.sidebar:
     st.image("assets/parsing.png", width=200)
     st.markdown("#### Settings")
 
+    st.markdown(
+        "Get a free API key at [cloud.llamaindex.ai](https://cloud.llamaindex.ai) "
+        "— takes 30 seconds, includes ~3,300 free pages/month."
+    )
+
     api_key = st.text_input(
         "LlamaParse API Key",
         value=os.environ.get("LLAMA_CLOUD_API_KEY", ""),
@@ -190,7 +195,8 @@ with st.sidebar:
     st.caption(
         "Powered by [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started)  \n"
         "Free tier: ~3,300 pages/month  \n"
-        "[GitHub](https://github.com/beperron/pdf-to-accessible-html)"
+        "[GitHub](https://github.com/beperron/pdf-to-accessible-html) · "
+        "[Report a problem](https://github.com/beperron/pdf-to-accessible-html/issues/new)"
     )
 
 # --- Hero section ---
@@ -320,3 +326,12 @@ if "results" in st.session_state:
                     file_name=f"{stem}.md",
                     mime="text/markdown",
                 )
+
+    st.markdown(
+        "<div style='text-align: center; padding: 1rem 0; color: #9ca3af;'>"
+        "Something not right? "
+        "<a href='https://github.com/beperron/pdf-to-accessible-html/issues/new' "
+        "target='_blank'>Report a problem</a>"
+        "</div>",
+        unsafe_allow_html=True,
+    )
