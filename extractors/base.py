@@ -7,8 +7,8 @@ from pathlib import Path
 
 @dataclass
 class ExtractionResult:
-    """Result from a single PDF extraction."""
-    pdf_name: str
+    """Result from a single document extraction."""
+    pdf_name: str  # kept for backwards compatibility; holds any document stem
     markdown: str
     images: list[Path] = field(default_factory=list)
     page_count: int = 0
@@ -26,13 +26,13 @@ class ExtractionResult:
 
 
 class BaseExtractor(ABC):
-    """Abstract base for PDF extraction approaches."""
+    """Abstract base for document extraction approaches."""
 
     name: str = "base"
 
     @abstractmethod
-    def extract(self, pdf_path: Path) -> ExtractionResult:
-        """Extract markdown + images from a PDF file."""
+    def extract(self, file_path: Path) -> ExtractionResult:
+        """Extract markdown + images from a document."""
         ...
 
     def extract_images_pymupdf(self, pdf_path: Path, output_dir: Path) -> list[Path]:

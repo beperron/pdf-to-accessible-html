@@ -1,4 +1,4 @@
-"""Configuration for the PDF-to-Accessible-HTML pipeline (Streamlit version)."""
+"""Configuration for the document-to-accessible-HTML pipeline."""
 
 from pathlib import Path
 
