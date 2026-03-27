@@ -144,19 +144,19 @@ All three modes have been tested across PDFs and PowerPoints. Every file passes 
 
 ```mermaid
 flowchart LR
-    A["PDF / PPTX / DOCX\n+ other formats"] --> B["LlamaParse API"]
-    B --> C["Structured\nMarkdown"]
+    A["PDF / PPTX / DOCX<br>+ other formats"] --> B["LlamaParse API"]
+    B --> C["Structured<br>Markdown"]
     C --> D["Math"]
     C --> E["Tables"]
     C --> F["Figures"]
     C --> G["Headings"]
     C --> H["Accessibility"]
-    D --> I["Accessible\nHTML"]
+    D --> I["Accessible<br>HTML"]
     E --> I
     F --> I
     G --> I
     H --> I
-    I --> J["WCAG 2.1 AA\nAudit"]
+    I --> J["WCAG 2.1 AA<br>Audit"]
 
     style A fill:#f3e8ff,stroke:#7c3aed,color:#1f2937
     style B fill:#ede9fe,stroke:#7c3aed,color:#1f2937
