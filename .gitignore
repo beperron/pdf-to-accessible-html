@@ -29,5 +29,6 @@ Thumbs.db
 
 # Project output
 output/
+test-output/
 *.html
 !templates/*.html
