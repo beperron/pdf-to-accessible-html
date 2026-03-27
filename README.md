@@ -42,6 +42,12 @@ The standards to fix this have existed since 1999. The ADA has been law since 19
 
 What has changed is that the technology to solve this is now available at a price point that makes the failure to act a choice rather than a constraint.
 
+### Why not just stop using PDFs?
+
+A common suggestion is to abandon PDF entirely. That isn't realistic. The overwhelming majority of scientific literature — journals, preprints, conference proceedings, technical reports — is published and archived as PDF. Researchers, courts, government agencies, and standards bodies have decades of institutional documents in PDF. The format isn't going away, and telling institutions to migrate billions of existing documents to a different format is not a serious accessibility strategy.
+
+The practical path is to make the documents that already exist — and the ones that will continue to be produced — accessible in the format they're in.
+
 ---
 
 ## Quick Start
