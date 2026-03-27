@@ -81,6 +81,19 @@ For most documents, `default` is the right choice. Use `quality` when you're con
 python convert.py paper.pdf -m quality -k llx-...
 ```
 
+### Tested
+
+All three modes have been tested across PDFs and PowerPoints. Every file passes the full 8-point WCAG 2.1 AA audit.
+
+| Document | Type | Mode | Pages | Time | Audit |
+|:---|:---|:---|:---|:---|:---|
+| Expert report (168 pp.) | PDF | default | 168 | 334s | PASS |
+| Expert report (168 pp.) | PDF | quality | 168 | 78s | PASS |
+| Social work journal article | PDF | default | 16 | 108s | PASS |
+| NIH Biosketches in SciENcv | PPTX | fast | 15 | 41s | PASS |
+| SciENcv delegate access guide | PPTX | default | 8 | 63s | PASS |
+| Innovation Partnerships (30 slides) | PPTX | quality | 30 | 74s | PASS |
+
 ---
 
 ## The Problem
