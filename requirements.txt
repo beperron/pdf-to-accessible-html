@@ -5,3 +5,4 @@ markdown
 jinja2
 beautifulsoup4
 lxml
+streamlit

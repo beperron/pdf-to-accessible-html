@@ -70,14 +70,88 @@ def run_conversion(uploaded_file, api_key: str, mode: str) -> dict:
 
 st.set_page_config(
     page_title="Documents to Accessible HTML",
-    page_icon="rainbow",
+    page_icon=":rainbow:",
     layout="wide",
 )
+
+# --- Custom CSS ---
+
+st.markdown("""
+<style>
+    /* Hero section */
+    .hero-container {
+        text-align: center;
+        padding: 1rem 0 0.5rem 0;
+    }
+    .hero-container img {
+        max-width: 320px;
+        margin-bottom: 0.5rem;
+    }
+    .hero-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin: 0.25rem 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .hero-subtitle {
+        font-size: 1.1rem;
+        color: #6b7280;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+    }
+
+    /* Upload area */
+    [data-testid="stFileUploader"] {
+        border-radius: 12px;
+    }
+    [data-testid="stFileUploader"] section {
+        padding: 1rem;
+    }
+
+    /* Result cards */
+    .audit-pass {
+        background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border-left: 4px solid #059669;
+        margin: 0.5rem 0;
+    }
+    .audit-fail {
+        background: linear-gradient(135deg, #fee2e2, #fecaca);
+        padding: 0.75rem 1rem;
+        border-radius: 8px;
+        border-left: 4px solid #dc2626;
+        margin: 0.5rem 0;
+    }
+
+    /* Sidebar polish */
+    [data-testid="stSidebar"] {
+        padding-top: 1.5rem;
+    }
+    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p {
+        font-size: 0.9rem;
+    }
+
+    /* Metric styling */
+    [data-testid="stMetric"] {
+        text-align: center;
+    }
+
+    /* Reduce top padding */
+    .block-container {
+        padding-top: 1rem;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # --- Sidebar ---
 
 with st.sidebar:
-    st.title("Settings")
+    st.image("assets/parsing.png", width=200)
+    st.markdown("#### Settings")
 
     api_key = st.text_input(
         "LlamaParse API Key",
@@ -103,24 +177,54 @@ with st.sidebar:
     )
 
     st.divider()
-    st.caption(
-        "Powered by [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started)  \n"
-        "Free tier: ~3,300 pages/month"
+
+    st.markdown(
+        "**How it works**\n\n"
+        "1. Upload a document\n"
+        "2. We extract content via [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started)\n"
+        "3. A 5-stage pipeline adds accessibility features\n"
+        "4. Every file is audited against 8 WCAG 2.1 AA checks"
     )
 
-# --- Main area ---
+    st.divider()
+    st.caption(
+        "Powered by [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started)  \n"
+        "Free tier: ~3,300 pages/month  \n"
+        "[GitHub](https://github.com/beperron/pdf-to-accessible-html)"
+    )
 
-st.title("Documents to Accessible HTML")
-st.markdown(
-    "Upload a document and get WCAG 2.1 AA compliant, screen-reader-compatible HTML back."
-)
+# --- Hero section ---
+
+col_left, col_center, col_right = st.columns([1, 2, 1])
+with col_center:
+    st.markdown("""
+    <div class="hero-container">
+        <div class="hero-title">Documents to Accessible HTML</div>
+        <div class="hero-subtitle">
+            Convert PDFs, PowerPoints, Word docs, and more to<br>
+            WCAG 2.1 AA compliant, screen-reader-compatible HTML
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+# --- Upload area ---
 
 uploaded_files = st.file_uploader(
     "Choose files to convert",
     type=SUPPORTED_EXTENSIONS,
     accept_multiple_files=True,
     help="PDF, PowerPoint, Word, Excel, images, and more.",
+    label_visibility="collapsed",
 )
+
+if not uploaded_files:
+    st.markdown(
+        "<div style='text-align: center; color: #9ca3af; padding: 0.5rem 0;'>"
+        "Drag and drop files above, or click to browse.  "
+        "Supports PDF, PPTX, DOCX, XLSX, RTF, EPUB, and images."
+        "</div>",
+        unsafe_allow_html=True,
+    )
 
 if uploaded_files and not api_key:
     st.warning(
@@ -154,9 +258,11 @@ if uploaded_files and api_key:
 if "results" in st.session_state:
     results = st.session_state["results"]
 
+    st.divider()
+
     for result in results:
         with st.container(border=True):
-            # Header row
+            # Header row with filename and metrics
             col1, col2, col3 = st.columns([3, 1, 1])
             with col1:
                 st.subheader(result["filename"])
@@ -167,9 +273,19 @@ if "results" in st.session_state:
 
             # Audit results
             if result["all_passed"]:
-                st.success("All 8 WCAG 2.1 AA checks passed")
+                st.markdown(
+                    '<div class="audit-pass">'
+                    "All 8 WCAG 2.1 AA checks passed"
+                    "</div>",
+                    unsafe_allow_html=True,
+                )
             else:
-                st.error("Some accessibility checks failed")
+                st.markdown(
+                    '<div class="audit-fail">'
+                    "Some accessibility checks failed"
+                    "</div>",
+                    unsafe_allow_html=True,
+                )
 
             with st.expander("Audit details"):
                 cols = st.columns(4)
