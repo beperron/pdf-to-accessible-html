@@ -50,14 +50,18 @@ What has changed is that the technology to solve this is now available at a pric
 
 Sign up at [cloud.llamaindex.ai](https://cloud.llamaindex.ai) — takes 30 seconds, includes ~3,300 free pages/month.
 
-**2. Use the web app**
+**2. Try it in the browser**
+
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/beperron/pdf-to-accessible-html/main/app.py)
+
+Upload your document, paste your API key, and click **Convert**. No installation required.
+
+**Or run it locally**
 
 ```bash
 pip install -r requirements.txt
 streamlit run app.py
 ```
-
-Upload your document, paste your API key, and click **Convert**. That's it.
 
 **Or use the command line**
 
@@ -138,14 +142,38 @@ All three modes have been tested across PDFs and PowerPoints. Every file passes 
 
 ## How It Works
 
-```
-Document  -->  LlamaParse API  -->  Structured Markdown  -->  5-Stage Pipeline  -->  Accessible HTML
+```mermaid
+flowchart LR
+    A["PDF / PPTX / DOCX\n+ other formats"] --> B["LlamaParse API"]
+    B --> C["Structured\nMarkdown"]
+    C --> D["Math"]
+    C --> E["Tables"]
+    C --> F["Figures"]
+    C --> G["Headings"]
+    C --> H["Accessibility"]
+    D --> I["Accessible\nHTML"]
+    E --> I
+    F --> I
+    G --> I
+    H --> I
+    I --> J["WCAG 2.1 AA\nAudit"]
+
+    style A fill:#f3e8ff,stroke:#7c3aed,color:#1f2937
+    style B fill:#ede9fe,stroke:#7c3aed,color:#1f2937
+    style C fill:#e0e7ff,stroke:#4f46e5,color:#1f2937
+    style D fill:#dbeafe,stroke:#3b82f6,color:#1f2937
+    style E fill:#dbeafe,stroke:#3b82f6,color:#1f2937
+    style F fill:#dbeafe,stroke:#3b82f6,color:#1f2937
+    style G fill:#dbeafe,stroke:#3b82f6,color:#1f2937
+    style H fill:#dbeafe,stroke:#3b82f6,color:#1f2937
+    style I fill:#d1fae5,stroke:#059669,color:#1f2937
+    style J fill:#a7f3d0,stroke:#059669,color:#1f2937
 ```
 
-Step 1 — Extraction via [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started).
+**Step 1 — Extraction** via [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started).
 LlamaParse is a document parsing API built by [LlamaIndex](https://llamaindex.ai). It reads the document and extracts text, tables, equations, figures, and headings as structured markdown. This is the hard part — the step that would take a team of engineers months to build — and LlamaParse does it well, at scale, across PDFs, PowerPoints, Word docs, Excel files, and more.
 
-Step 2 — Accessibility pipeline.
+**Step 2 — Accessibility pipeline.**
 Five processors transform the markdown into WCAG-compliant HTML:
 
 | Stage | What It Does |
@@ -156,7 +184,7 @@ Five processors transform the markdown into WCAG-compliant HTML:
 | Headings | Repairs hierarchy (no skipped levels), adds slugified IDs |
 | Accessibility | Skip links, ARIA landmarks, `lang` attribute, auto-generated TOC |
 
-Step 3 — Audit.
+**Step 3 — Audit.**
 Every output file is verified against 8 WCAG 2.1 AA criteria. Pass rate: 100%.
 
 ---
