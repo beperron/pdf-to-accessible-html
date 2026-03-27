@@ -5,7 +5,7 @@ import os
 import sys
 from pathlib import Path
 
-from extractors.llamaparse_extractor import LlamaParseExtractor
+from extractors.llamaparse_extractor import LlamaParseExtractor, MODES
 from postprocessing.md_to_html import convert_markdown_to_html
 from evaluation.accessibility_audit import audit_file
 
@@ -16,10 +16,10 @@ SUPPORTED_EXTENSIONS = {
 }
 
 
-def convert_file(file_path: Path, output_dir: Path, api_key: str):
+def convert_file(file_path: Path, output_dir: Path, api_key: str, mode: str = "default"):
     """Convert a single document to accessible HTML."""
     print(f"  Extracting: {file_path.name}")
-    extractor = LlamaParseExtractor(api_key=api_key)
+    extractor = LlamaParseExtractor(api_key=api_key, mode=mode)
     result = extractor.extract(file_path)
 
     title = file_path.stem.replace("-", " ").replace("_", " ")
@@ -85,6 +85,10 @@ def main():
         default=os.environ.get("LLAMA_CLOUD_API_KEY", ""),
         help="LlamaParse API key (or set LLAMA_CLOUD_API_KEY env var)",
     )
+    parser.add_argument(
+        "-m", "--mode", default="default", choices=MODES.keys(),
+        help="Parsing mode: fast (~3 credits/page), default (~3-10), quality (~10). Default: default",
+    )
     args = parser.parse_args()
 
     if not args.api_key:
@@ -102,11 +106,12 @@ def main():
         print(f"No supported files found in {input_path}")
         sys.exit(1)
 
-    print(f"Converting {len(files)} file(s) -> {output_dir}/\n")
+    print(f"Converting {len(files)} file(s) -> {output_dir}/")
+    print(f"Mode: {args.mode} — {MODES[args.mode]['description']}\n")
 
     all_passed = True
     for file_path in files:
-        if not convert_file(file_path, output_dir, args.api_key):
+        if not convert_file(file_path, output_dir, args.api_key, args.mode):
             all_passed = False
         print()
 

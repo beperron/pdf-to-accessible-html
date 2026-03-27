@@ -59,10 +59,27 @@ Options:
 | `input` | Document file or directory of documents |
 | `-o`, `--output` | Output directory (default: `./output`) |
 | `-k`, `--api-key` | LlamaParse API key (or set `LLAMA_CLOUD_API_KEY`) |
+| `-m`, `--mode` | Parsing mode: `fast`, `default`, or `quality` (see below) |
 
 Supported formats: PDF, PPTX, DOCX, XLSX, RTF, EPUB, and images (JPG, PNG, TIFF, etc.). Anything [LlamaParse supports](https://docs.cloud.llamaindex.ai/llamaparse/getting_started).
 
 Each document produces two output files: a `.html` (accessible, self-contained) and a `.md` (intermediate markdown). Every HTML file is audited against 8 WCAG 2.1 AA criteria on creation.
+
+### Parsing Modes
+
+The `--mode` flag controls how [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started) extracts content. Higher modes use more credits but produce better results on complex documents.
+
+| Mode | Credits/page | What it does |
+|:---|:---|:---|
+| `fast` | ~3 | Standard LLM parsing. Good for simple, text-heavy documents. |
+| `default` | ~3–10 | Auto mode. Starts at standard cost, automatically upgrades pages that contain tables or images. Enables link annotation and cross-page table merging. |
+| `quality` | ~10 | Agentic parsing. Uses [LlamaParse's agentic extraction](https://docs.cloud.llamaindex.ai/llamaparse/getting_started) for every page — better structural accuracy on complex layouts, equations, and charts. |
+
+For most documents, `default` is the right choice. Use `quality` when you're converting research papers with dense tables and equations, or complex slide decks where structural accuracy matters.
+
+```bash
+python convert.py paper.pdf -m quality -k llx-...
+```
 
 ---
 
