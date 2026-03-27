@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+<header role="banner">
+    <p class="approach-label">Converted to accessible HTML via <strong>{{ approach }}</strong></p>
+</header>
+
+<main id="main-content" role="main">
+    <article aria-label="{{ title }}">
+        {{ content }}
+    </article>
+</main>
+
+<footer role="contentinfo">
+    <p>Converted from PDF using the accessible document pipeline.</p>
+</footer>
+{% endblock %}
