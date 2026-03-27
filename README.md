@@ -11,88 +11,10 @@ Powered by [LlamaIndex](https://llamaindex.ai) / [LlamaParse](https://docs.cloud
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 &nbsp;&nbsp;
 [![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1_AA-Compliant-brightgreen)](https://www.w3.org/WAI/WCAG21/quickref/)
+&nbsp;&nbsp;
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/beperron/pdf-to-accessible-html/main/app.py)
 
 </div>
-
----
-
-## Quick Start
-
-```bash
-pip install -r requirements.txt
-python convert.py presentation.pptx -k YOUR_API_KEY
-```
-
-That's it. Your accessible HTML is in `./output/`.
-
-Get a free API key at [cloud.llamaindex.ai](https://cloud.llamaindex.ai) — takes 30 seconds, includes ~3,300 free pages/month.
-
----
-
-## Usage
-
-Convert a single file:
-
-```bash
-python convert.py paper.pdf -k llx-...
-python convert.py slides.pptx -k llx-...
-python convert.py report.docx -k llx-...
-```
-
-Convert a directory of documents:
-
-```bash
-python convert.py ./documents/ -o ./accessible/ -k llx-...
-```
-
-Use an environment variable instead of `-k`:
-
-```bash
-export LLAMA_CLOUD_API_KEY=llx-...
-python convert.py paper.pdf
-```
-
-Options:
-
-| Flag | Description |
-|:---|:---|
-| `input` | Document file or directory of documents |
-| `-o`, `--output` | Output directory (default: `./output`) |
-| `-k`, `--api-key` | LlamaParse API key (or set `LLAMA_CLOUD_API_KEY`) |
-| `-m`, `--mode` | Parsing mode: `fast`, `default`, or `quality` (see below) |
-
-Supported formats: PDF, PPTX, DOCX, XLSX, RTF, EPUB, and images (JPG, PNG, TIFF, etc.). Anything [LlamaParse supports](https://docs.cloud.llamaindex.ai/llamaparse/getting_started).
-
-Each document produces two output files: a `.html` (accessible, self-contained) and a `.md` (intermediate markdown). Every HTML file is audited against 8 WCAG 2.1 AA criteria on creation.
-
-### Parsing Modes
-
-The `--mode` flag controls how [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started) extracts content. Higher modes use more credits but produce better results on complex documents.
-
-| Mode | Credits/page | What it does |
-|:---|:---|:---|
-| `fast` | ~3 | Standard LLM parsing. Good for simple, text-heavy documents. |
-| `default` | ~3–10 | Auto mode. Starts at standard cost, automatically upgrades pages that contain tables or images. Enables link annotation and cross-page table merging. |
-| `quality` | ~10 | Agentic parsing. Uses [LlamaParse's agentic extraction](https://docs.cloud.llamaindex.ai/llamaparse/getting_started) for every page — better structural accuracy on complex layouts, equations, and charts. |
-
-For most documents, `default` is the right choice. Use `quality` when you're converting research papers with dense tables and equations, or complex slide decks where structural accuracy matters.
-
-```bash
-python convert.py paper.pdf -m quality -k llx-...
-```
-
-### Tested
-
-All three modes have been tested across PDFs and PowerPoints. Every file passes the full 8-point WCAG 2.1 AA audit.
-
-| Type | Mode | Pages | Time | Audit |
-|:---|:---|:---|:---|:---|
-| PDF | default | 168 | 334s | PASS |
-| PDF | quality | 168 | 78s | PASS |
-| PDF | default | 16 | 108s | PASS |
-| PPTX | fast | 15 | 41s | PASS |
-| PPTX | default | 8 | 63s | PASS |
-| PPTX | quality | 30 | 74s | PASS |
 
 ---
 
@@ -119,6 +41,98 @@ Approximately 42.5 million Americans live with a disability that affects their u
 The standards to fix this have existed since 1999. The ADA has been law since 1990. The publishers and institutions with the resources to implement them have chosen not to.
 
 What has changed is that the technology to solve this is now available at a price point that makes the failure to act a choice rather than a constraint.
+
+---
+
+## Quick Start
+
+**1. Get a free API key**
+
+Sign up at [cloud.llamaindex.ai](https://cloud.llamaindex.ai) — takes 30 seconds, includes ~3,300 free pages/month.
+
+**2. Use the web app**
+
+```bash
+pip install -r requirements.txt
+streamlit run app.py
+```
+
+Upload your document, paste your API key, and click **Convert**. That's it.
+
+**Or use the command line**
+
+```bash
+python convert.py presentation.pptx -k YOUR_API_KEY
+```
+
+Your accessible HTML will be in `./output/`.
+
+---
+
+## Usage
+
+**Convert a single file** — pass any PDF, PowerPoint, Word doc, or other supported format:
+
+```bash
+python convert.py paper.pdf -k llx-...
+python convert.py slides.pptx -k llx-...
+python convert.py report.docx -k llx-...
+```
+
+**Convert a whole folder** — point it at a directory and everything inside gets converted:
+
+```bash
+python convert.py ./documents/ -o ./accessible/ -k llx-...
+```
+
+**Save your API key as an environment variable** so you don't have to type it every time:
+
+```bash
+export LLAMA_CLOUD_API_KEY=llx-...
+python convert.py paper.pdf
+```
+
+### Options
+
+| Flag | What it does |
+|:---|:---|
+| `input` | The file or folder you want to convert |
+| `-o`, `--output` | Where to save the results (default: `./output`) |
+| `-k`, `--api-key` | Your LlamaParse API key (or set `LLAMA_CLOUD_API_KEY`) |
+| `-m`, `--mode` | Parsing quality: `fast`, `default`, or `quality` (see below) |
+
+**Supported formats:** PDF, PPTX, DOCX, XLSX, RTF, EPUB, and images (JPG, PNG, TIFF, etc.). Anything [LlamaParse supports](https://docs.cloud.llamaindex.ai/llamaparse/getting_started).
+
+Each document produces two output files: a `.html` (accessible, self-contained) and a `.md` (intermediate markdown). Every HTML file is audited against 8 WCAG 2.1 AA criteria on creation.
+
+### Parsing Modes
+
+The `--mode` flag controls how thoroughly [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started) extracts content. Higher modes use more credits but produce better results on complex documents.
+
+| Mode | Credits/page | Best for |
+|:---|:---|:---|
+| `fast` | ~3 | Simple, text-heavy documents |
+| `default` | ~3–10 | Most documents. Auto-upgrades pages with tables or images. |
+| `quality` | ~10 | Research papers, dense tables, equations, complex slide decks |
+
+For most documents, `default` is the right choice. Use `quality` when structural accuracy really matters:
+
+```bash
+python convert.py paper.pdf -m quality -k llx-...
+```
+
+### Tested
+
+All three modes have been tested across PDFs and PowerPoints. Every file passes the full 8-point WCAG 2.1 AA audit.
+
+| Type | Mode | Pages | Time | Audit |
+|:---|:---|:---|:---|:---|
+| PDF | default | 168 | 334s | PASS |
+| PDF | quality | 168 | 78s | PASS |
+| PDF | default | 16 | 108s | PASS |
+| PPTX | fast | 15 | 41s | PASS |
+| PPTX | default | 8 | 63s | PASS |
+| PPTX | quality | 30 | 74s | PASS |
 
 ---
 
