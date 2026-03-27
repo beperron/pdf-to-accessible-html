@@ -1,4 +1,4 @@
-"""Convert PDF files to WCAG 2.1 AA accessible HTML."""
+"""Convert documents to WCAG 2.1 AA accessible HTML."""
 
 import argparse
 import os
@@ -9,14 +9,20 @@ from extractors.llamaparse_extractor import LlamaParseExtractor
 from postprocessing.md_to_html import convert_markdown_to_html
 from evaluation.accessibility_audit import audit_file
 
+SUPPORTED_EXTENSIONS = {
+    ".pdf", ".docx", ".doc", ".pptx", ".ppt", ".xlsx", ".xls",
+    ".html", ".htm", ".txt", ".rtf", ".epub", ".md",
+    ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".webp",
+}
 
-def convert_pdf(pdf_path: Path, output_dir: Path, api_key: str):
-    """Convert a single PDF to accessible HTML."""
-    print(f"  Extracting: {pdf_path.name}")
+
+def convert_file(file_path: Path, output_dir: Path, api_key: str):
+    """Convert a single document to accessible HTML."""
+    print(f"  Extracting: {file_path.name}")
     extractor = LlamaParseExtractor(api_key=api_key)
-    result = extractor.extract(pdf_path)
+    result = extractor.extract(file_path)
 
-    title = pdf_path.stem.replace("-", " ").replace("_", " ")
+    title = file_path.stem.replace("-", " ").replace("_", " ")
     html = convert_markdown_to_html(
         md_text=result.markdown,
         title=title,
@@ -24,11 +30,11 @@ def convert_pdf(pdf_path: Path, output_dir: Path, api_key: str):
     )
 
     # Save HTML
-    html_path = output_dir / f"{pdf_path.stem}.html"
+    html_path = output_dir / f"{file_path.stem}.html"
     html_path.write_text(html, encoding="utf-8")
 
     # Save markdown
-    md_path = output_dir / f"{pdf_path.stem}.md"
+    md_path = output_dir / f"{file_path.stem}.md"
     md_path.write_text(result.markdown, encoding="utf-8")
 
     # Audit
@@ -46,11 +52,30 @@ def convert_pdf(pdf_path: Path, output_dir: Path, api_key: str):
     return passed
 
 
+def find_files(input_path: Path) -> list[Path]:
+    """Find supported files from a path (file or directory)."""
+    if input_path.is_file():
+        if input_path.suffix.lower() in SUPPORTED_EXTENSIONS:
+            return [input_path]
+        else:
+            print(f"Error: {input_path.suffix} is not a supported file type")
+            print(f"Supported: {', '.join(sorted(SUPPORTED_EXTENSIONS))}")
+            sys.exit(1)
+    elif input_path.is_dir():
+        files = []
+        for ext in SUPPORTED_EXTENSIONS:
+            files.extend(input_path.glob(f"*{ext}"))
+        return sorted(set(files))
+    else:
+        print(f"Error: {input_path} does not exist")
+        sys.exit(1)
+
+
 def main():
     parser = argparse.ArgumentParser(
-        description="Convert PDFs to WCAG 2.1 AA accessible HTML."
+        description="Convert documents to WCAG 2.1 AA accessible HTML."
     )
-    parser.add_argument("input", help="PDF file or directory of PDFs")
+    parser.add_argument("input", help="Document file or directory of documents")
     parser.add_argument(
         "-o", "--output", default="output",
         help="Output directory (default: ./output)",
@@ -71,23 +96,17 @@ def main():
     output_dir = Path(args.output)
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    if input_path.is_file() and input_path.suffix.lower() == ".pdf":
-        pdf_files = [input_path]
-    elif input_path.is_dir():
-        pdf_files = sorted(input_path.glob("*.pdf"))
-    else:
-        print(f"Error: {input_path} is not a PDF file or directory")
+    files = find_files(input_path)
+
+    if not files:
+        print(f"No supported files found in {input_path}")
         sys.exit(1)
 
-    if not pdf_files:
-        print(f"No PDF files found in {input_path}")
-        sys.exit(1)
-
-    print(f"Converting {len(pdf_files)} PDF(s) -> {output_dir}/\n")
+    print(f"Converting {len(files)} file(s) -> {output_dir}/\n")
 
     all_passed = True
-    for pdf_path in pdf_files:
-        if not convert_pdf(pdf_path, output_dir, args.api_key):
+    for file_path in files:
+        if not convert_file(file_path, output_dir, args.api_key):
             all_passed = False
         print()
 

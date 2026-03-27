@@ -1,10 +1,10 @@
 <div align="center">
 
-<img src="assets/parsing.png" alt="A rainbow llama eating PDFs and producing accessible HTML documents" width="500">
+<img src="assets/parsing.png" alt="A rainbow llama eating documents and producing accessible HTML" width="500">
 
-# PDF to Accessible HTML
+# Documents to Accessible HTML
 
-Convert inaccessible PDFs to WCAG 2.1 AA compliant, screen-reader-compatible HTML — for less than half a cent per page.
+Convert inaccessible PDFs, PowerPoints, Word docs, and other documents to WCAG 2.1 AA compliant, screen-reader-compatible HTML — for less than half a cent per page.
 
 Powered by [LlamaIndex](https://llamaindex.ai) / [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started)
 
@@ -20,7 +20,7 @@ Powered by [LlamaIndex](https://llamaindex.ai) / [LlamaParse](https://docs.cloud
 
 ```bash
 pip install -r requirements.txt
-python convert.py paper.pdf -k YOUR_API_KEY
+python convert.py presentation.pptx -k YOUR_API_KEY
 ```
 
 That's it. Your accessible HTML is in `./output/`.
@@ -31,16 +31,18 @@ Get a free API key at [cloud.llamaindex.ai](https://cloud.llamaindex.ai) — tak
 
 ## Usage
 
-Convert a single PDF:
+Convert a single file:
 
 ```bash
 python convert.py paper.pdf -k llx-...
+python convert.py slides.pptx -k llx-...
+python convert.py report.docx -k llx-...
 ```
 
-Convert a directory of PDFs:
+Convert a directory of documents:
 
 ```bash
-python convert.py ./pdfs/ -o ./accessible/ -k llx-...
+python convert.py ./documents/ -o ./accessible/ -k llx-...
 ```
 
 Use an environment variable instead of `-k`:
@@ -54,11 +56,13 @@ Options:
 
 | Flag | Description |
 |:---|:---|
-| `input` | PDF file or directory of PDFs |
+| `input` | Document file or directory of documents |
 | `-o`, `--output` | Output directory (default: `./output`) |
 | `-k`, `--api-key` | LlamaParse API key (or set `LLAMA_CLOUD_API_KEY`) |
 
-Each PDF produces two output files: a `.html` (accessible, self-contained) and a `.md` (intermediate markdown). Every HTML file is audited against 8 WCAG 2.1 AA criteria on creation.
+Supported formats: PDF, PPTX, DOCX, XLSX, RTF, EPUB, and images (JPG, PNG, TIFF, etc.). Anything [LlamaParse supports](https://docs.cloud.llamaindex.ai/llamaparse/getting_started).
+
+Each document produces two output files: a `.html` (accessible, self-contained) and a `.md` (intermediate markdown). Every HTML file is audited against 8 WCAG 2.1 AA criteria on creation.
 
 ---
 
@@ -68,7 +72,7 @@ On **April 24, 2026**, the DOJ's [ADA Title II Digital Accessibility Rule](https
 
 Most institutions understand their websites need to be accessible. Fewer have reckoned with the **document problem**.
 
-> Public institutions produce and host enormous volumes of PDFs — court opinions, policy documents, research publications, meeting minutes, budget reports. The overwhelming majority are inaccessible. They lack tagged headings, meaningful reading order, table structure, and alt text. A screen reader encounters most of them as a wall of undifferentiated text — or worse, as images with no text at all.
+> Public institutions produce and host enormous volumes of PDFs, PowerPoints, Word documents, and spreadsheets — court opinions, policy documents, research publications, meeting minutes, budget reports. The overwhelming majority are inaccessible. They lack tagged headings, meaningful reading order, table structure, and alt text. A screen reader encounters most of them as a wall of undifferentiated text — or worse, as images with no text at all.
 
 Manual remediation costs $50–$150 per document and takes a trained specialist 10–15 hours. For an institution with thousands of documents, the math is prohibitive. This is why, despite decades of legal obligation, most public-facing documents remain inaccessible.
 
@@ -91,11 +95,11 @@ What has changed is that the technology to solve this is now available at a pric
 ## How It Works
 
 ```
-PDF  -->  LlamaParse API  -->  Structured Markdown  -->  5-Stage Pipeline  -->  Accessible HTML
+Document  -->  LlamaParse API  -->  Structured Markdown  -->  5-Stage Pipeline  -->  Accessible HTML
 ```
 
 Step 1 — Extraction via [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started).
-LlamaParse is a document parsing API built by [LlamaIndex](https://llamaindex.ai). It reads the PDF and extracts text, tables, equations, figures, and headings as structured markdown. This is the hard part — the step that would take a team of engineers months to build — and LlamaParse does it well, at scale, across PDFs, Word docs, PowerPoints, Excel files, and more.
+LlamaParse is a document parsing API built by [LlamaIndex](https://llamaindex.ai). It reads the document and extracts text, tables, equations, figures, and headings as structured markdown. This is the hard part — the step that would take a team of engineers months to build — and LlamaParse does it well, at scale, across PDFs, PowerPoints, Word docs, Excel files, and more.
 
 Step 2 — Accessibility pipeline.
 Five processors transform the markdown into WCAG-compliant HTML:
@@ -166,7 +170,7 @@ Format conversion for accessibility is supported by multiple federal statutes an
 ## Limitations
 
 > [!IMPORTANT]
-> Automated conversion will produce occasional errors. Complex tables, unusual layouts, scanned images, and mathematical notation are common sources of imperfect output. Always review the output and compare against the original PDF. The original document remains the authoritative source.
+> Automated conversion will produce occasional errors. Complex tables, unusual layouts, scanned images, and mathematical notation are common sources of imperfect output. Always review the output and compare against the original document. The original remains the authoritative source.
 
 This tool dramatically reduces manual effort — from hours per document to seconds — but it does not eliminate the need for a final human review.
 
@@ -177,7 +181,7 @@ This tool dramatically reduces manual effort — from hours per document to seco
 This tool is 95% [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started) and 5% post-processing. The extraction — the hard part — is entirely theirs.
 
 - [LlamaIndex](https://llamaindex.ai) — the company behind LlamaParse. Their document parsing API is what makes this tool possible.
-- [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started) — the document extraction engine. Converts PDFs to structured markdown with remarkable accuracy.
+- [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started) — the document extraction engine. Converts PDFs, PowerPoints, Word docs, and more to structured markdown with remarkable accuracy.
 - [MathJax](https://www.mathjax.org/) — accessible equation rendering with the Speech Rule Engine.
 
 ---

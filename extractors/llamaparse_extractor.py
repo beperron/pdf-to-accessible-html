@@ -1,4 +1,4 @@
-"""LlamaParse-based PDF extraction."""
+"""LlamaParse-based document extraction."""
 
 import time
 import tempfile
@@ -13,7 +13,7 @@ class LlamaParseExtractor(BaseExtractor):
     def __init__(self, api_key: str):
         self.api_key = api_key
 
-    def extract(self, pdf_path: Path, images_dir: Path = None) -> ExtractionResult:
+    def extract(self, file_path: Path, images_dir: Path = None) -> ExtractionResult:
         from llama_parse import LlamaParse
 
         parser = LlamaParse(
@@ -30,23 +30,29 @@ class LlamaParseExtractor(BaseExtractor):
         )
 
         start = time.time()
-        documents = parser.load_data(str(pdf_path))
+        documents = parser.load_data(str(file_path))
         elapsed = time.time() - start
 
         markdown = "\n\n".join(doc.text for doc in documents)
 
-        # Extract images via PyMuPDF
-        if images_dir is None:
-            images_dir = Path(tempfile.mkdtemp()) / pdf_path.stem
-        images = self.extract_images_pymupdf(pdf_path, images_dir)
+        # Extract images and page count via PyMuPDF (PDF only)
+        images = []
+        page_count = 0
+        if file_path.suffix.lower() == ".pdf":
+            if images_dir is None:
+                images_dir = Path(tempfile.mkdtemp()) / file_path.stem
+            images = self.extract_images_pymupdf(file_path, images_dir)
 
-        import fitz
-        doc = fitz.open(pdf_path)
-        page_count = len(doc)
-        doc.close()
+            import fitz
+            doc = fitz.open(file_path)
+            page_count = len(doc)
+            doc.close()
+        else:
+            # Estimate page count from LlamaParse document chunks
+            page_count = len(documents) if documents else 1
 
         return ExtractionResult(
-            pdf_name=pdf_path.stem,
+            pdf_name=file_path.stem,
             markdown=markdown,
             images=images,
             page_count=page_count,
