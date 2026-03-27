@@ -8,22 +8,59 @@ Convert inaccessible PDFs to WCAG 2.1 AA compliant, screen-reader-compatible HTM
 
 Powered by [LlamaIndex](https://llamaindex.ai) / [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started)
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://pdf-to-accessible-html.streamlit.app/)
-&nbsp;&nbsp;
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 &nbsp;&nbsp;
 [![WCAG 2.1 AA](https://img.shields.io/badge/WCAG_2.1_AA-Compliant-brightgreen)](https://www.w3.org/WAI/WCAG21/quickref/)
 
----
-
-Upload a PDF. Get back a fully accessible, screen-reader-compatible HTML document.<br>
-No technical skills required. Every output file passes an 8-point accessibility audit.
-
-[Try the App](https://pdf-to-accessible-html.streamlit.app/) · [How It Works](#how-it-works) · [Why This Exists](#why-this-exists)
-
 </div>
 
-<br>
+---
+
+## Quick Start
+
+```bash
+pip install -r requirements.txt
+python convert.py paper.pdf -k YOUR_API_KEY
+```
+
+That's it. Your accessible HTML is in `./output/`.
+
+Get a free API key at [cloud.llamaindex.ai](https://cloud.llamaindex.ai) — takes 30 seconds, includes ~3,300 free pages/month.
+
+---
+
+## Usage
+
+Convert a single PDF:
+
+```bash
+python convert.py paper.pdf -k llx-...
+```
+
+Convert a directory of PDFs:
+
+```bash
+python convert.py ./pdfs/ -o ./accessible/ -k llx-...
+```
+
+Use an environment variable instead of `-k`:
+
+```bash
+export LLAMA_CLOUD_API_KEY=llx-...
+python convert.py paper.pdf
+```
+
+Options:
+
+| Flag | Description |
+|:---|:---|
+| `input` | PDF file or directory of PDFs |
+| `-o`, `--output` | Output directory (default: `./output`) |
+| `-k`, `--api-key` | LlamaParse API key (or set `LLAMA_CLOUD_API_KEY`) |
+
+Each PDF produces two output files: a `.html` (accessible, self-contained) and a `.md` (intermediate markdown). Every HTML file is audited against 8 WCAG 2.1 AA criteria on creation.
+
+---
 
 ## The Problem
 
@@ -48,30 +85,6 @@ Approximately 42.5 million Americans live with a disability that affects their u
 The standards to fix this have existed since 1999. The ADA has been law since 1990. The publishers and institutions with the resources to implement them have chosen not to.
 
 What has changed is that the technology to solve this is now available at a price point that makes the failure to act a choice rather than a constraint.
-
----
-
-## Quick Start
-
-### Use the Web App
-
-> [!TIP]
-> No installation required. The web app handles everything.
-
-1. [Open the App](https://pdf-to-accessible-html.streamlit.app/)
-2. Get a free API key at [cloud.llamaindex.ai](https://cloud.llamaindex.ai) — takes 30 seconds, includes ~3,300 free pages/month
-3. Paste your key in the sidebar
-4. Upload your PDF or ZIP
-5. Click Convert and download your accessible documents
-
-### Run Locally (for large batches)
-
-```bash
-git clone https://github.com/beperron/pdf-to-accessible-html.git
-cd pdf-to-accessible-html
-pip install -r requirements.txt
-streamlit run app.py
-```
 
 ---
 
@@ -159,14 +172,6 @@ This tool dramatically reduces manual effort — from hours per document to seco
 
 ---
 
-## Privacy & Security
-
-- Your API key is used only during your session — never saved or logged
-- Uploaded files are processed in temporary storage and discarded when your session ends
-- The app stores nothing between sessions
-
----
-
 ## Credits
 
 This tool is 95% [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started) and 5% post-processing. The extraction — the hard part — is entirely theirs.
@@ -179,7 +184,7 @@ This tool is 95% [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/gettin
 
 <div align="center">
 
-[Try the App](https://pdf-to-accessible-html.streamlit.app/) · [Report an Issue](https://github.com/beperron/pdf-to-accessible-html/issues) · [Get an API Key](https://cloud.llamaindex.ai)
+[Report an Issue](https://github.com/beperron/pdf-to-accessible-html/issues) · [Get an API Key](https://cloud.llamaindex.ai)
 
 ---
 
