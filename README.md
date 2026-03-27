@@ -6,6 +6,8 @@
 
 **Convert inaccessible PDFs to WCAG 2.1 AA compliant, screen-reader-compatible HTML — for less than half a cent per page.**
 
+Powered by **[LlamaIndex](https://llamaindex.ai)** / **[LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started)**
+
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://pdf-to-accessible-html.streamlit.app/)
 &nbsp;&nbsp;
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -102,8 +104,8 @@ streamlit run app.py
 PDF  -->  LlamaParse API  -->  Structured Markdown  -->  5-Stage Pipeline  -->  Accessible HTML
 ```
 
-**Step 1 — Extraction.**
-[LlamaParse](https://llamaindex.ai) (by LlamaIndex) reads the PDF and extracts text, tables, equations, figures, and headings as structured markdown. This is the hard part — and LlamaParse handles it across PDFs, Word docs, PowerPoints, Excel files, and more.
+**Step 1 — Extraction via [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started).**
+[LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started) is a document parsing API built by [LlamaIndex](https://llamaindex.ai). It reads the PDF and extracts text, tables, equations, figures, and headings as structured markdown. This is the hard part — the step that would take a team of engineers months to build — and LlamaParse does it well, at scale, across PDFs, Word docs, PowerPoints, Excel files, and more.
 
 **Step 2 — Accessibility Pipeline.**
 Five processors transform the markdown into WCAG-compliant HTML:
@@ -153,7 +155,7 @@ Every output file is verified against 8 WCAG 2.1 AA criteria. Pass rate: **100%*
 | **Paid** | ~$0.004/page | 10,000 pages = **$50** |
 
 > [!NOTE]
-> You bring your own [LlamaParse API key](https://cloud.llamaindex.ai). The free tier is generous — most individual users will never need to pay.
+> You bring your own [LlamaParse API key](https://cloud.llamaindex.ai) from [LlamaIndex](https://llamaindex.ai). The free tier is generous — most individual users will never need to pay.
 
 ---
 
@@ -190,7 +192,10 @@ This tool dramatically reduces manual effort — from hours per document to seco
 
 ## Credits
 
-- **[LlamaIndex / LlamaParse](https://llamaindex.ai)** — the extraction engine that makes this possible
+This tool is 95% [LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started) and 5% post-processing. The extraction — the hard part — is entirely theirs.
+
+- **[LlamaIndex](https://llamaindex.ai)** — the company behind LlamaParse. Their document parsing API is what makes this tool possible. Excellent service, highly recommended.
+- **[LlamaParse](https://docs.cloud.llamaindex.ai/llamaparse/getting_started)** — the document extraction engine. Converts PDFs to structured markdown with remarkable accuracy.
 - **[MathJax](https://www.mathjax.org/)** — accessible equation rendering with the Speech Rule Engine
 
 ---
