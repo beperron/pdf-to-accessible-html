@@ -49,29 +49,6 @@ The standards to fix this have existed since 1999. The ADA has been law since 19
 
 What has changed is that the technology to solve this is now available at a price point that makes the failure to act a choice rather than a constraint.
 
-<table>
-<tr>
-<td width="33%" align="center">
-<h3>$280</h3>
-One meeting<br>
-<sub>4 staff, 1 hour, $100k salaries</sub><br>
-0 pages converted
-</td>
-<td width="33%" align="center">
-<h3>$280</h3>
-This tool<br>
-<sub>Same budget, different outcome</sub><br>
-~70,000 pages converted
-</td>
-<td width="33%" align="center">
-<h3>$1,020</h3>
-Manual remediation<br>
-<sub>1 specialist, 15 hours</sub><br>
-~20 pages converted
-</td>
-</tr>
-</table>
-
 ---
 
 ## Quick Start
